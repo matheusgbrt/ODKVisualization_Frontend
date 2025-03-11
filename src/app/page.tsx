@@ -21,13 +21,11 @@ export default function DataPage() {
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // Ensure your API base URL is correct
 
-  console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
-
   // Fetch abastecimentos independently
   useEffect(() => {
     async function fetchAbastecimentos() {
       try {
-        const res = await fetch(`${apiBaseUrl}/abastecimentos/ultimos`);
+        const res = await fetch(`${apiBaseUrl}/api/envios/abastecimentos/ultimos`);
         const data = await res.json();
         setAbastecimentos(data);
       } catch (error) {
@@ -43,7 +41,7 @@ export default function DataPage() {
   useEffect(() => {
     async function fetchEscavadeiras() {
       try {
-        const res = await fetch(`${apiBaseUrl}/checklistescavadeiras/ultimos`);
+        const res = await fetch(`${apiBaseUrl}/api/envios/checklistescavadeiras/ultimos`);
         const data = await res.json();
 
         setEscavadeiras(data);
@@ -59,7 +57,7 @@ export default function DataPage() {
   useEffect(() => {
     async function fetchTratorPneus() {
       try {
-        const res = await fetch(`${apiBaseUrl}/checklisttratorpneus/ultimos`);
+        const res = await fetch(`${apiBaseUrl}/api/envios/checklisttratorpneus/ultimos`);
         const data = await res.json();
 
         setTratorPneus(data);
@@ -75,7 +73,7 @@ export default function DataPage() {
   useEffect(() => {
     async function fetchTratorEsteiras() {
       try {
-        const res = await fetch(`${apiBaseUrl}/checklistratoresteiras/ultimos`);
+        const res = await fetch(`${apiBaseUrl}/api/envios/checklistratoresteiras/ultimos`);
         const data = await res.json();
         setTratorEsteiras(data);
       } catch (error) {
@@ -90,7 +88,7 @@ export default function DataPage() {
   useEffect(() => {
     async function fetchVeiculos() {
       try {
-        const res = await fetch(`${apiBaseUrl}/checklistveiculos/ultimos`);
+        const res = await fetch(`${apiBaseUrl}/api/envios/checklistveiculos/ultimos`);
         const data = await res.json();
         setVeiculos(data);
       } catch (error) {
@@ -105,7 +103,7 @@ export default function DataPage() {
   useEffect(() => {
     async function fetchDiarioMaquinas() {
       try {
-        const res = await fetch(`${apiBaseUrl}/diariomaquinas/ultimos`);
+        const res = await fetch(`${apiBaseUrl}/api/envios/diariomaquinas/ultimos`);
         const data = await res.json();
         setDiarioMaquinas(data);
       } catch (error) {
