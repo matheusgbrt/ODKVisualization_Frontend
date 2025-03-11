@@ -1,101 +1,468 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useState } from "react";
+import { Card, CardContent, Typography, Box, CircularProgress, Container } from "@mui/material"
 
-export default function Home() {
+export default function DataPage() {
+  const [abastecimentos, setAbastecimentos] = useState<any[]>([]);
+  const [escavadeiras, setEscavadeiras] = useState<any[]>([]);
+  const [tratorPneus, setTratorPneus] = useState<any[]>([]);
+  const [tratorEsteiras, setTratorEsteiras] = useState<any[]>([]);
+  const [veiculos, setVeiculos] = useState<any[]>([]);
+  const [diarioMaquinas, setDiarioMaquinas] = useState<any[]>([]);
+
+
+  const [loadingAbastecimentos, setLoadingAbastecimentos] = useState(true);
+  const [loadingEscavadeiras, setLoadingEscavadeiras] = useState(true);
+  const [loadingTratorPneus, setLoadingTratorPneus] = useState(true);
+  const [loadingTratorEsteiras, setLoadingTratorEsteiras] = useState(true);
+  const [loadingVeiculos, setLoadingVeiculos] = useState(true);
+  const [loadingDiario, setLoadingDiario] = useState(true);
+
+
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // Ensure your API base URL is correct
+
+  console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
+
+  // Fetch abastecimentos independently
+  useEffect(() => {
+    async function fetchAbastecimentos() {
+      try {
+        const res = await fetch(`${apiBaseUrl}/abastecimentos/ultimos`);
+        const data = await res.json();
+        setAbastecimentos(data);
+      } catch (error) {
+        console.error("Error fetching abastecimentos:", error);
+      } finally {
+        setLoadingAbastecimentos(false);
+      }
+    }
+    fetchAbastecimentos();
+  }, []);
+
+
+  useEffect(() => {
+    async function fetchEscavadeiras() {
+      try {
+        const res = await fetch(`${apiBaseUrl}/checklistescavadeiras/ultimos`);
+        const data = await res.json();
+
+        setEscavadeiras(data);
+      } catch (error) {
+        console.error("Error fetching checklists:", error);
+      } finally {
+        setLoadingEscavadeiras(false);
+      }
+    }
+    fetchEscavadeiras();
+  }, []);
+
+  useEffect(() => {
+    async function fetchTratorPneus() {
+      try {
+        const res = await fetch(`${apiBaseUrl}/checklisttratorpneus/ultimos`);
+        const data = await res.json();
+
+        setTratorPneus(data);
+      } catch (error) {
+        console.error("Error fetching checklists:", error);
+      } finally {
+        setLoadingTratorPneus(false);
+      }
+    }
+    fetchTratorPneus();
+  }, []);
+
+  useEffect(() => {
+    async function fetchTratorEsteiras() {
+      try {
+        const res = await fetch(`${apiBaseUrl}/checklistratoresteiras/ultimos`);
+        const data = await res.json();
+        setTratorEsteiras(data);
+      } catch (error) {
+        console.error("Error fetching checklists:", error);
+      } finally {
+        setLoadingTratorEsteiras(false);
+      }
+    }
+    fetchTratorEsteiras();
+  }, []);
+
+  useEffect(() => {
+    async function fetchVeiculos() {
+      try {
+        const res = await fetch(`${apiBaseUrl}/checklistveiculos/ultimos`);
+        const data = await res.json();
+        setVeiculos(data);
+      } catch (error) {
+        console.error("Error fetching checklists:", error);
+      } finally {
+        setLoadingVeiculos(false);
+      }
+    }
+    fetchVeiculos();
+  }, []);
+
+  useEffect(() => {
+    async function fetchDiarioMaquinas() {
+      try {
+        const res = await fetch(`${apiBaseUrl}/diariomaquinas/ultimos`);
+        const data = await res.json();
+        setDiarioMaquinas(data);
+      } catch (error) {
+        console.error("Error fetching checklists:", error);
+      } finally {
+        setLoadingDiario(false);
+      }
+    }
+    fetchDiarioMaquinas();
+  }, []);
+
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <Container maxWidth="lg">
+      <Typography variant="h4" gutterBottom sx={{ marginTop: 4, fontWeight: "bold" }}>
+        Envios
+      </Typography>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      {/* Abastecimentos Section */}
+      <Typography variant="h5" sx={{ marginBottom: 2 }}>
+        Abastecimentos
+      </Typography>
+      {loadingAbastecimentos ? (
+        <CircularProgress />
+      ) : (
+        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
+          {abastecimentos.map((item, index) => (
+            <Card key={index} sx={{ minHeight: 120 }}>
+              <CardContent>
+                <Typography variant="h6" color="primary">
+                Frota: {item.numero}
+                </Typography>
+
+                {/* Section for today's data */}
+                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
+                {item.today ? (
+                  <>
+                    {item.today.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.today.operador}
+                      </Typography>
+                    )}
+                    {item.today.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.today.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+
+                {/* Section for yesterday's data */}
+                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
+                {item.yesterday ? (
+                  <>
+                    {item.yesterday.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.yesterday.operador}
+                      </Typography>
+                    )}
+                    {item.yesterday.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.yesterday.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
+
+      <Typography variant="h5" sx={{ marginTop: 4, marginBottom: 2 }}>
+        Checklist de Escavadeiras
+      </Typography>
+      {loadingEscavadeiras ? (
+        <CircularProgress />
+      ) : (
+        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
+          {escavadeiras.map((item, index) => (
+            <Card key={index} sx={{ minHeight: 120 }}>
+              <CardContent>
+                <Typography variant="h6" color="secondary">
+                  Frota: {item.numero}
+                </Typography>
+
+                {/* Section for today's data */}
+                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
+                {item.today ? (
+                  <>
+                    {item.today.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.today.operador}
+                      </Typography>
+                    )}
+                    {item.today.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.today.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+
+                {/* Section for yesterday's data */}
+                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
+                {item.yesterday ? (
+                  <>
+                    {item.yesterday.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.yesterday.operador}
+                      </Typography>
+                    )}
+                    {item.yesterday.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.yesterday.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
+
+      <Typography variant="h5" sx={{ marginTop: 4, marginBottom: 2 }}>
+        Checklist de Tratores de Pneus
+      </Typography>
+      {loadingTratorPneus ? (
+        <CircularProgress />
+      ) : (
+        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
+          {tratorPneus.map((item, index) => (
+            <Card key={index} sx={{ minHeight: 120 }}>
+              <CardContent>
+                <Typography variant="h6" color="secondary">
+                Frota: {item.numero}
+                </Typography>
+
+                {/* Section for today's data */}
+                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
+                {item.today ? (
+                  <>
+                    {item.today.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.today.operador}
+                      </Typography>
+                    )}
+                    {item.today.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.today.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+
+                {/* Section for yesterday's data */}
+                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
+                {item.yesterday ? (
+                  <>
+                    {item.yesterday.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.yesterday.operador}
+                      </Typography>
+                    )}
+                    {item.yesterday.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.yesterday.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
+      <Typography variant="h5" sx={{ marginTop: 4, marginBottom: 2 }}>
+        Checklist de Tratores de Esteiras
+      </Typography>
+      {loadingTratorEsteiras ? (
+        <CircularProgress />
+      ) : (
+        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
+          {tratorEsteiras.map((item, index) => (
+            <Card key={index} sx={{ minHeight: 120 }}>
+              <CardContent>
+                <Typography variant="h6" color="secondary">
+                Frota: {item.numero}
+                </Typography>
+
+                {/* Section for today's data */}
+                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
+                {item.today ? (
+                  <>
+                    {item.today.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.today.operador}
+                      </Typography>
+                    )}
+                    {item.today.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.today.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+
+                {/* Section for yesterday's data */}
+                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
+                {item.yesterday ? (
+                  <>
+                    {item.yesterday.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.yesterday.operador}
+                      </Typography>
+                    )}
+                    {item.yesterday.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.yesterday.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
+      <Typography variant="h5" sx={{ marginTop: 4, marginBottom: 2 }}>
+        Checklist de Veículos
+      </Typography>
+      {loadingVeiculos ? (
+        <CircularProgress />
+      ) : (
+        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
+          {veiculos.map((item, index) => (
+            <Card key={index} sx={{ minHeight: 120 }}>
+              <CardContent>
+                <Typography variant="h6" color="secondary">
+                Frota: {item.numero}
+                </Typography>
+
+                {/* Section for today's data */}
+                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
+                {item.today ? (
+                  <>
+                    {item.today.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.today.operador}
+                      </Typography>
+                    )}
+                    {item.today.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.today.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+
+                {/* Section for yesterday's data */}
+                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
+                {item.yesterday ? (
+                  <>
+                    {item.yesterday.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.yesterday.operador}
+                      </Typography>
+                    )}
+                    {item.yesterday.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.yesterday.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
+      <Typography variant="h5" sx={{ marginTop: 4, marginBottom: 2 }}>
+        Diário de Máquinas
+      </Typography>
+      {loadingDiario ? (
+        <CircularProgress />
+      ) : (
+        <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
+          {diarioMaquinas.map((item, index) => (
+            <Card key={index} sx={{ minHeight: 120 }}>
+              <CardContent>
+                <Typography variant="h6" color="secondary">
+                Frota: {item.numero}
+                </Typography>
+
+                {/* Section for today's data */}
+                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
+                {item.today ? (
+                  <>
+                    {item.today.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.today.operador}
+                      </Typography>
+                    )}
+                    {item.today.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.today.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+
+                {/* Section for yesterday's data */}
+                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
+                {item.yesterday ? (
+                  <>
+                    {item.yesterday.operador && (
+                      <Typography variant="body2" color="textSecondary">
+                        Operador: {item.yesterday.operador}
+                      </Typography>
+                    )}
+                    {item.yesterday.end && (
+                      <Typography variant="body2" color="textSecondary">
+                        Horário: {new Date(item.yesterday.end).toLocaleString()}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
+    </Container>
   );
 }
