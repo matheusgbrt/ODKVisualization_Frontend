@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Card, CardContent, Typography, Box, CircularProgress, Container } from "@mui/material"
+import SubmissionsCard from "./components/SubmissionsCard"
 
 export default function DataPage() {
   const [abastecimentos, setAbastecimentos] = useState<any[]>([]);
@@ -19,7 +20,7 @@ export default function DataPage() {
   const [loadingDiario, setLoadingDiario] = useState(true);
 
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // Ensure your API base URL is correct
+  const apiBaseUrl = "http://localhost:5273"; // Ensure your API base URL is correct
 
   // Fetch abastecimentos independently
   useEffect(() => {
@@ -115,6 +116,7 @@ export default function DataPage() {
     fetchDiarioMaquinas();
   }, []);
 
+  
 
   return (
     <Container maxWidth="lg">
@@ -130,52 +132,8 @@ export default function DataPage() {
         <CircularProgress />
       ) : (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
-          {abastecimentos.map((item, index) => (
-            <Card key={index} sx={{ minHeight: 120 }}>
-              <CardContent>
-                <Typography variant="h6" color="primary">
-                Frota: {item.numero}
-                </Typography>
-
-                {/* Section for today's data */}
-                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
-                {item.today ? (
-                  <>
-                    {item.today.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.today.operador}
-                      </Typography>
-                    )}
-                    {item.today.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.today.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-
-                {/* Section for yesterday's data */}
-                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
-                {item.yesterday ? (
-                  <>
-                    {item.yesterday.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.yesterday.operador}
-                      </Typography>
-                    )}
-                    {item.yesterday.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.yesterday.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-              </CardContent>
-            </Card>
+          {abastecimentos.map((item) => (
+            <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
           ))}
         </Box>
       )}
@@ -187,52 +145,8 @@ export default function DataPage() {
         <CircularProgress />
       ) : (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
-          {escavadeiras.map((item, index) => (
-            <Card key={index} sx={{ minHeight: 120 }}>
-              <CardContent>
-                <Typography variant="h6" color="secondary">
-                  Frota: {item.numero}
-                </Typography>
-
-                {/* Section for today's data */}
-                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
-                {item.today ? (
-                  <>
-                    {item.today.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.today.operador}
-                      </Typography>
-                    )}
-                    {item.today.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.today.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-
-                {/* Section for yesterday's data */}
-                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
-                {item.yesterday ? (
-                  <>
-                    {item.yesterday.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.yesterday.operador}
-                      </Typography>
-                    )}
-                    {item.yesterday.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.yesterday.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-              </CardContent>
-            </Card>
+          {escavadeiras.map((item) => (
+            <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
           ))}
         </Box>
       )}
@@ -244,52 +158,8 @@ export default function DataPage() {
         <CircularProgress />
       ) : (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
-          {tratorPneus.map((item, index) => (
-            <Card key={index} sx={{ minHeight: 120 }}>
-              <CardContent>
-                <Typography variant="h6" color="secondary">
-                Frota: {item.numero}
-                </Typography>
-
-                {/* Section for today's data */}
-                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
-                {item.today ? (
-                  <>
-                    {item.today.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.today.operador}
-                      </Typography>
-                    )}
-                    {item.today.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.today.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-
-                {/* Section for yesterday's data */}
-                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
-                {item.yesterday ? (
-                  <>
-                    {item.yesterday.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.yesterday.operador}
-                      </Typography>
-                    )}
-                    {item.yesterday.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.yesterday.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-              </CardContent>
-            </Card>
+          {tratorPneus.map((item) => (
+            <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
           ))}
         </Box>
       )}
@@ -300,52 +170,8 @@ export default function DataPage() {
         <CircularProgress />
       ) : (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
-          {tratorEsteiras.map((item, index) => (
-            <Card key={index} sx={{ minHeight: 120 }}>
-              <CardContent>
-                <Typography variant="h6" color="secondary">
-                Frota: {item.numero}
-                </Typography>
-
-                {/* Section for today's data */}
-                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
-                {item.today ? (
-                  <>
-                    {item.today.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.today.operador}
-                      </Typography>
-                    )}
-                    {item.today.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.today.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-
-                {/* Section for yesterday's data */}
-                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
-                {item.yesterday ? (
-                  <>
-                    {item.yesterday.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.yesterday.operador}
-                      </Typography>
-                    )}
-                    {item.yesterday.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.yesterday.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-              </CardContent>
-            </Card>
+          {tratorEsteiras.map((item) => (
+            <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
           ))}
         </Box>
       )}
@@ -356,52 +182,8 @@ export default function DataPage() {
         <CircularProgress />
       ) : (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
-          {veiculos.map((item, index) => (
-            <Card key={index} sx={{ minHeight: 120 }}>
-              <CardContent>
-                <Typography variant="h6" color="secondary">
-                Frota: {item.numero}
-                </Typography>
-
-                {/* Section for today's data */}
-                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
-                {item.today ? (
-                  <>
-                    {item.today.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.today.operador}
-                      </Typography>
-                    )}
-                    {item.today.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.today.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-
-                {/* Section for yesterday's data */}
-                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
-                {item.yesterday ? (
-                  <>
-                    {item.yesterday.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.yesterday.operador}
-                      </Typography>
-                    )}
-                    {item.yesterday.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.yesterday.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-              </CardContent>
-            </Card>
+          {veiculos.map((item) => (
+            <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
           ))}
         </Box>
       )}
@@ -412,52 +194,8 @@ export default function DataPage() {
         <CircularProgress />
       ) : (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
-          {diarioMaquinas.map((item, index) => (
-            <Card key={index} sx={{ minHeight: 120 }}>
-              <CardContent>
-                <Typography variant="h6" color="secondary">
-                Frota: {item.numero}
-                </Typography>
-
-                {/* Section for today's data */}
-                <Typography variant="body2" fontWeight="bold">Hoje</Typography>
-                {item.today ? (
-                  <>
-                    {item.today.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.today.operador}
-                      </Typography>
-                    )}
-                    {item.today.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.today.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-
-                {/* Section for yesterday's data */}
-                <Typography variant="body2" fontWeight="bold">Ontem</Typography>
-                {item.yesterday ? (
-                  <>
-                    {item.yesterday.operador && (
-                      <Typography variant="body2" color="textSecondary">
-                        Operador: {item.yesterday.operador}
-                      </Typography>
-                    )}
-                    {item.yesterday.end && (
-                      <Typography variant="body2" color="textSecondary">
-                        Horário: {new Date(item.yesterday.end).toLocaleString()}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">Nenhum envio</Typography>
-                )}
-              </CardContent>
-            </Card>
+          {diarioMaquinas.map((item) => (
+           <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
           ))}
         </Box>
       )}
