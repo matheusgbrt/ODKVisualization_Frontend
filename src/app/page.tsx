@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Card, CardContent, Typography, Box, CircularProgress, Container } from "@mui/material"
+import { Typography, Box, CircularProgress, Container } from "@mui/material"
 import SubmissionsCard from "./components/SubmissionsCard"
 
 export default function DataPage() {

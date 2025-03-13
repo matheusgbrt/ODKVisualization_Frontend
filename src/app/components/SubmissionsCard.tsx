@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 const SubmissionsCard: React.FC<{ item: any }> = ({ item }) => (
   <Card sx={{ minHeight: 120 }}>
@@ -10,7 +10,7 @@ const SubmissionsCard: React.FC<{ item: any }> = ({ item }) => (
 
       <Typography variant="body1" component="div" fontWeight="bold">Hoje</Typography>
       {item.today && item.today.length > 0 ? (
-        item.today.map((submission: any, index: number) => (
+        item.today.map((submission: any) => (
           <div key={crypto.randomUUID()}>
                {/*<Typography variant="body2" component="div" sx={{ mt: 1 }}>{item.today.length - index}⁰</Typography>*/}
             <Box sx={{
@@ -37,7 +37,7 @@ const SubmissionsCard: React.FC<{ item: any }> = ({ item }) => (
       {/* Section for yesterday's data */}
       <Typography variant="body1" fontWeight="bold">Ontem</Typography>
       {item.yesterday && item.yesterday.length > 0 ? (
-        item.yesterday.map((submission: any, index: number) => (
+        item.yesterday.map((submission: any) => (
           <div key={crypto.randomUUID()}>
             {/* <Typography variant="body2" component="div" sx={{ mt: 1 }}>{item.yesterday.length - index}⁰</Typography> */}
             <Box sx={{
