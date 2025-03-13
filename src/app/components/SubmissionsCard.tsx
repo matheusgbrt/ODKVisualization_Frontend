@@ -23,7 +23,7 @@ const SubmissionsCard: React.FC<{ item: any }> = ({ item }) => (
               )}
               {submission.end && (
                 <Typography variant="body2" color="textSecondary">
-                  Horário: {new Date(submission.end).toLocaleString()}
+                  Horário: {new Date(submission.end).toLocaleString('pt-BR',{ day:'2-digit',month:'2-digit',year:'numeric',hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </Typography>
               )}
             </Box>
@@ -50,7 +50,7 @@ const SubmissionsCard: React.FC<{ item: any }> = ({ item }) => (
               )}
               {submission.end && (
                 <Typography variant="body2" color="textSecondary">
-                  Horário: {new Date(submission.end).toLocaleString()}
+                  Horário: {new Date(submission.end).toLocaleString('pt-BR',{ day:'2-digit',month:'2-digit',year:'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </Typography>
               )}
             </Box>
