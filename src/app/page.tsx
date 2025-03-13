@@ -20,7 +20,7 @@ export default function DataPage() {
   const [loadingDiario, setLoadingDiario] = useState(true);
 
 
-  const apiBaseUrl = "http://localhost:5273"; // Ensure your API base URL is correct
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL; // Ensure your API base URL is correct
 
   // Fetch abastecimentos independently
   useEffect(() => {
