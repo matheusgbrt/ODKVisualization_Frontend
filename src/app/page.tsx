@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Typography, Box, CircularProgress, Container } from "@mui/material"
-import SubmissionsCard from "./components/SubmissionsCard"
+import SubmissionsCard from "./components/SubmissionsCard";
 
 export default function DataPage() {
   const [abastecimentos, setAbastecimentos] = useState<any[]>([]);
@@ -19,9 +19,9 @@ export default function DataPage() {
   const [loadingVeiculos, setLoadingVeiculos] = useState(true);
   const [loadingDiario, setLoadingDiario] = useState(true);
 
-  //const apiBaseUrl = "http://localhost:5273";
+  const apiBaseUrl = "http://localhost:5273";
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  //const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   // Fetch abastecimentos independently
   useEffect(() => {
@@ -196,7 +196,7 @@ export default function DataPage() {
       ) : (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={2}>
           {diarioMaquinas.map((item) => (
-           <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
+            <SubmissionsCard key = {crypto.randomUUID()} item = {item}></SubmissionsCard>
           ))}
         </Box>
       )}
