@@ -19,7 +19,7 @@ export default function DataPage() {
   const [loadingVeiculos, setLoadingVeiculos] = useState(true);
   const [loadingDiario, setLoadingDiario] = useState(true);
 
-  const apiBaseUrl = "https://odk-api.pmgb.com.br";
+  const apiBaseUrl = "https://odk.api.pmgb.com.br";
 
   
 
